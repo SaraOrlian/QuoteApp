@@ -11,8 +11,11 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
