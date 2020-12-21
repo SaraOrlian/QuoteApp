@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleFABclick() {
         //to be developed...
+        //QuoteFeed quoteFeed = new QuoteFeed();
+        //textView.setText(quoteFeed.getContent());
     }
 @Override
     public boolean onCreateOptionsMenu(Menu menu) {
