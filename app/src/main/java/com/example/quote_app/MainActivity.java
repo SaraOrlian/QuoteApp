@@ -1,21 +1,20 @@
 package com.example.quote_app;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView;
+    private TextView quoteText;
+    private TextView authorText;
+    private final QuoteController controller = new QuoteController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,23 +23,26 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       setupFAB();
+        setupFAB();
+        setupFields();
+    }
+
+    private void setupFields() {
+        quoteText = findViewById(R.id.quote_text);
+        authorText = findViewById(R.id.author_text);
     }
 
     private void setupFAB() {
         ExtendedFloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleFABclick();
-            }
-        });
+        fab.setOnClickListener(view -> handleFABClick());
     }
 
-    private void handleFABclick() {
-        //to be developed...
+    private void handleFABClick() {
+        authorText.setText(controller.getAuthor());
+        quoteText.setText(controller.getQuote());
+        controller.regenerateQuote();
     }
-@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);

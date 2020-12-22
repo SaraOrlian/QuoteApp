@@ -2,12 +2,23 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/standard_margin"
+    android:layout_marginRight="@dimen/standard_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/quote_text"
+        android:text="@string/welcome"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/standard_margin"
+        style="@style/multi_text_view_style" />
+
+    <TextView
+        android:id="@+id/author_text"
         android:text=""
         style="@style/multi_text_view_style" />
 

@@ -6,8 +6,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QuoteController {
-    QuoteService service = new QuoteServiceFactory().getInstance();
-    String quote;
+    private final QuoteService service = new QuoteServiceFactory().getInstance();
+
+    private String quote;
+    private String author;
+
+    public QuoteController() {
+        regenerateQuote();
+    }
 
     public void regenerateQuote() {
         service.getRandomQuote().enqueue(new Callback<QuoteFeed>() {
@@ -15,6 +21,7 @@ public class QuoteController {
             public void onResponse(Call<QuoteFeed> call, Response<QuoteFeed> response) {
                 if (response.body() != null) {
                     quote = response.body().getContent();
+                    author = response.body().getAuthor();
                 }
             }
 
@@ -27,5 +34,9 @@ public class QuoteController {
 
     public String getQuote() {
         return quote;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }
