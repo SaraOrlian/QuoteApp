@@ -10,6 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import static com.example.quote_app.lib.Utils.showInfoDialog;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView quoteText;
@@ -57,10 +60,23 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                showSettings();
+                return true;
+            case R.id.action_about:
+                showAbout();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAbout() {
+        showInfoDialog(this, "About our Quotes", "This app was developed by Michal Berger and Sara Orlian. We hope you enjoy and " +
+                "get inspired by each quote:)");
+    }
+
+    private void showSettings() {
     }
 }
