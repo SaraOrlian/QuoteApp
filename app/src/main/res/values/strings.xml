@@ -14,5 +14,8 @@
     <string name="night_mode_on">Use Night/Dark Mode (unless disabled in OS Settings)</string>
     <string name="fab">FAB</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="text_size">Text Size</string>
+    <string name="large_text">Use Large Text Size for Quote</string>
+    <string name="default_text">Use Default Text Size for Quote</string>
 
 </resources>

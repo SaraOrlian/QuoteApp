@@ -1,6 +1,7 @@
 package com.example.quote_app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.example.quote_app.lib.Utils.showInfoDialog;
 
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupFAB();
         setupFields();
+        restoreFromPreferences_TextSize();
     }
 
     private void setupFields() {
@@ -82,4 +85,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivityForResult(intent, 1);
     }
+
+    private void restoreFromPreferences_TextSize() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        if (defaultSharedPreferences.getBoolean(getString(R.string.text_size), true)) {
+            quoteText.setTextSize(25);
+
+        }
+    }
+
 }

@@ -1,4 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
+
+    <dimen name="text_larger_size">24sp</dimen>
 </resources>

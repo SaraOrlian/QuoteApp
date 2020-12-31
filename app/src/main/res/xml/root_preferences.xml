@@ -7,9 +7,12 @@
             app:summaryOff="@string/night_mode_off"
             app:summaryOn="@string/night_mode_on"
             app:title="@string/night_mode_title" />
-    </PreferenceCategory>
-    <PreferenceCategory app:title="@string/quote_header">
-
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="@string/text_size"
+            app:summaryOff="@string/large_text"
+            app:summaryOn="@string/default_text"
+            app:title="@string/quote_header" />
     </PreferenceCategory>
 
 
