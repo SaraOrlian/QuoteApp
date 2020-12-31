@@ -13,15 +13,26 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.example.quote_app.lib.Utils.showInfoDialog;
 
 
 public class MainActivity extends AppCompatActivity {
+    private final QuoteController controller = new QuoteController();
 
     private TextView quoteText;
     private TextView authorText;
-    private final QuoteController controller = new QuoteController();
+
+    private String currQuote;
+    private String currAuthor;
+
+    private final String savedQuotesFileName = "SAVED_QUOTES";
+    private final String savedQuotesSetName = "SAVED_QUOTES_SET";
+    Set<String> quotesSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         setupFAB();
         setupFields();
         restoreFromPreferences_TextSize();
+
+        SharedPreferences savedPrefs = getSharedPreferences(savedQuotesFileName, MODE_PRIVATE);
+        quotesSet = savedPrefs.getStringSet(savedQuotesSetName, new HashSet<>());
     }
 
     private void setupFields() {
@@ -46,9 +60,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleFABClick() {
-        authorText.setText(controller.getAuthor());
-        quoteText.setText(controller.getQuote());
+        currAuthor = controller.getAuthor();
+        currQuote = controller.getQuote();
+
+        authorText.setText(currAuthor);
+        quoteText.setText(currQuote);
         controller.regenerateQuote();
+    }
+
+    @Override
+    protected void onStop() {
+        saveQuotesToSharedPref();
+        super.onStop();
+    }
+
+    private void saveQuotesToSharedPref() {
+        SharedPreferences preferences = getSharedPreferences(savedQuotesFileName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putStringSet(savedQuotesSetName, quotesSet);
+        editor.apply();
     }
 
     @Override
@@ -65,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_settings:
                 showSettings();
@@ -73,9 +103,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_about:
                 showAbout();
                 return true;
+            case R.id.activity_saved_quotes:
+                Intent intent = new Intent(getApplicationContext(), SavedQuotesActivity.class);
+                intent.putExtra("QUOTES", new ArrayList<>(quotesSet));
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void showAbout() {

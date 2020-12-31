@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.quote_app.MainActivity" >
 
+    <item android:id="@+id/activity_saved_quotes"
+        android:title="@string/saved_quotes"
+        app:showAsAction="never" />
+
     <item android:id="@+id/action_about"
         android:title="@string/action_about"
         app:showAsAction="never" />
