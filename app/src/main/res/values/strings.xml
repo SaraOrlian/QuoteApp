@@ -19,5 +19,6 @@
     <string name="default_text">Use Default Text Size for Quote</string>
 
     <string name="saved_quotes">Saved Quotes</string>
+    <string name="like">like quote</string>
 
 </resources>

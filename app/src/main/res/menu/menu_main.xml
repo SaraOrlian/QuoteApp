@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.quote_app.MainActivity" >
 
+    <item
+        android:id="@+id/like_quote"
+        android:title="@string/like"
+        android:icon="@drawable/heart_vector"
+        app:showAsAction="always" />
+
     <item android:id="@+id/activity_saved_quotes"
         android:title="@string/saved_quotes"
         app:showAsAction="never" />

@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_about:
                 showAbout();
                 return true;
+            case R.id.like_quote:
+                quotesSet.add(currQuote + "- " + currAuthor);
+                return true;
             case R.id.activity_saved_quotes:
                 Intent intent = new Intent(getApplicationContext(), SavedQuotesActivity.class);
                 intent.putExtra("QUOTES", new ArrayList<>(quotesSet));
