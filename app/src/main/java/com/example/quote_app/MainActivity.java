@@ -1,14 +1,21 @@
 package com.example.quote_app;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
+import static com.example.quote_app.lib.Utils.showInfoDialog;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupFAB();
         setupFields();
+        restoreFromPreferences_TextSize();
     }
 
     private void setupFields() {
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         quoteText.setText(controller.getQuote());
         controller.regenerateQuote();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,10 +66,40 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                showSettings();
+                return true;
+            case R.id.action_about:
+                showAbout();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void showAbout() {
+        showInfoDialog(this, "About our Quotes", "This app was developed by Michal Berger and Sara Orlian. We hope you enjoy and " +
+                "get inspired by each quote:)");
+    }
+
+    private void showSettings() {
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1)
+            restoreFromPreferences_TextSize();
+        else
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void restoreFromPreferences_TextSize() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        boolean largeText = defaultSharedPreferences.getBoolean(getString(R.string.text_size), true);
+        quoteText.setTextSize(largeText ? 25 : 18);
+    }
 }
+

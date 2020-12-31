@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/display_header">
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="@string/night_mode_key"
+            app:summaryOff="@string/night_mode_off"
+            app:summaryOn="@string/night_mode_on"
+            app:title="@string/night_mode_title" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="@string/text_size"
+            app:summaryOff="@string/default_text"
+            app:summaryOn="@string/large_text"
+            app:title="@string/quote_header" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
