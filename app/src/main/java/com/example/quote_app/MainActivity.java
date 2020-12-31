@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         quoteText.setText(controller.getQuote());
         controller.regenerateQuote();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -86,12 +88,18 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    private void restoreFromPreferences_TextSize() {
-        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
-        if (defaultSharedPreferences.getBoolean(getString(R.string.text_size), true)) {
-            quoteText.setTextSize(25);
-
-        }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1)
+            restoreFromPreferences_TextSize();
+        else
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void restoreFromPreferences_TextSize() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        boolean largeText = defaultSharedPreferences.getBoolean(getString(R.string.text_size), true);
+        quoteText.setTextSize(largeText ? 25 : 18);
+    }
 }
+

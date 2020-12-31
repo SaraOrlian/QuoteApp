@@ -10,8 +10,8 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="@string/text_size"
-            app:summaryOff="@string/large_text"
-            app:summaryOn="@string/default_text"
+            app:summaryOff="@string/default_text"
+            app:summaryOn="@string/large_text"
             app:title="@string/quote_header" />
     </PreferenceCategory>
 
