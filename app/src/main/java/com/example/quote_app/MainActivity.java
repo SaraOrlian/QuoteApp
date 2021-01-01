@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         setupFAB();
         setupFields();
-        restoreFromPreferences_TextSize();
 
-        SharedPreferences savedPrefs = getSharedPreferences(savedQuotesFileName, MODE_PRIVATE);
-        quotesSet = savedPrefs.getStringSet(savedQuotesSetName, new HashSet<>());
+        restoreFromPreferences_TextSize();
+        restoreFromPreferences_Quotes();
     }
 
     private void setupFields() {
@@ -91,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
@@ -107,18 +103,24 @@ public class MainActivity extends AppCompatActivity {
                 quotesSet.add(currQuote + "- " + currAuthor);
                 return true;
             case R.id.activity_saved_quotes:
-                Intent intent = new Intent(getApplicationContext(), SavedQuotesActivity.class);
-                intent.putExtra("QUOTES", new ArrayList<>(quotesSet));
-                startActivity(intent);
+                showSavedQuotes();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void showSavedQuotes() {
+        Intent intent = new Intent(getApplicationContext(), SavedQuotesActivity.class);
+        intent.putExtra("QUOTES", new ArrayList<>(quotesSet));
+        startActivity(intent);
+    }
+
     private void showAbout() {
-        showInfoDialog(this, "About our Quotes", "This app was developed by Michal Berger and Sara Orlian. We hope you enjoy and " +
-                "get inspired by each quote:)");
+        showInfoDialog(this,
+                       "About our Quotes",
+                       "This app was developed by Michelle Berger and Sara Orlian. " +
+                       "We hope you enjoy and get inspired by each quote :)");
     }
 
     private void showSettings() {
@@ -138,6 +140,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
         boolean largeText = defaultSharedPreferences.getBoolean(getString(R.string.text_size), true);
         quoteText.setTextSize(largeText ? 25 : 18);
+    }
+
+    private void restoreFromPreferences_Quotes() {
+        SharedPreferences savedPrefs = getSharedPreferences(savedQuotesFileName, MODE_PRIVATE);
+        quotesSet = savedPrefs.getStringSet(savedQuotesSetName, new HashSet<>());
     }
 }
 
