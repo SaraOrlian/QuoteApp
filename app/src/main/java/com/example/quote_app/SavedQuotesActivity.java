@@ -30,7 +30,7 @@ public class SavedQuotesActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.activity_listview, quotesArray);
 
-        ListView listView = (ListView) findViewById(R.id.quotes_list);
+        ListView listView = findViewById(R.id.quotes_list);
         listView.setAdapter(adapter);
     }
 }
